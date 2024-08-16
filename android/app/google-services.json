@@ -12,7 +12,20 @@
           "package_name": "com.example.bridge"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "643971624111-fmo10v909jdrdscn2s7qpgn6m35mi963.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bridge",
+            "certificate_hash": "c4a3b7747dc609aa291201b9e461bbe3ab797f13"
+          }
+        },
+        {
+          "client_id": "643971624111-e7eo6ffo8l0iutgvnp85qnveje1hh6hp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDDFtSVhNXTsyTdLwaI95oO9BdtjgeQQyI"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643971624111-e7eo6ffo8l0iutgvnp85qnveje1hh6hp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643971624111-4482u3gdecrf6lgfsujh8nlaue6mnd9o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bridge"
+              }
+            }
+          ]
         }
       }
     }

@@ -63,6 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '643971624111',
     projectId: 'bridge-0909',
     storageBucket: 'bridge-0909.appspot.com',
+    androidClientId: '643971624111-fmo10v909jdrdscn2s7qpgn6m35mi963.apps.googleusercontent.com',
+    iosClientId: '643971624111-4482u3gdecrf6lgfsujh8nlaue6mnd9o.apps.googleusercontent.com',
     iosBundleId: 'com.example.bridge',
   );
+
 }
