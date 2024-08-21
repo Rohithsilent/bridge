@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:bridge/pages/auth/login_page.dart';
 import 'package:bridge/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../apis/api.dart';
 import '../main.dart';
@@ -20,7 +21,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(const Duration(milliseconds: 1500),(){
+    Future.delayed(const Duration(milliseconds: 1000),(){
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.white));
      if(APIs.auth.currentUser !=null){
        log('\nUser: ${APIs.auth.currentUser}');
        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const homepage()));
