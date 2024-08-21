@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class dialogs {
   static void showSnackbar(BuildContext context, String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -19,6 +20,7 @@ class dialogs {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0), // Rounded corners
         ),
+        duration: const Duration(seconds: 1),
       ),
     );
   }
@@ -33,4 +35,5 @@ class dialogs {
       ),
     );
   }
+
 }

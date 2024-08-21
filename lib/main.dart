@@ -4,8 +4,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 
+late Size size;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   //for setting orientation
   await _initializeFirebase();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]).then((value){

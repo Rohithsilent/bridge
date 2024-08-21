@@ -7,7 +7,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 import '../../apis/api.dart';
 import '../../helper/dialogs.dart';
-import '../../main.dart';
 
 class loginpage extends StatefulWidget {
   const loginpage({super.key});
@@ -21,12 +20,21 @@ class _loginpageState extends State<loginpage> {
   //google signin func
   _handleGoogleBtnClick(){
     dialogs.showProgressBar(context);//for showing progess indicator
-     _signInWithGoogle().then((user){
+     _signInWithGoogle().then((user) async {
        Navigator.pop(context);//for exiting progess indicator/**/
         if(user != null){
           log('\nuser: ${user.user}');
           log('\nAdditionalinfo: ${user.additionalUserInfo}');
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const homepage()));
+
+          if((await APIs.userExists())){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const homepage()));
+          }else{
+            await APIs.createUser().then((value) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const homepage()));
+            });
+          }
+
+
         }
      });
   }
