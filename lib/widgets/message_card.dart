@@ -35,32 +35,16 @@ class _MessageCardState extends State<MessageCard> {
     return Padding(
       padding: const EdgeInsets.only(left: 3, right: 3, top: 5, bottom: 5),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          //for showing profile pic
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(size.height * .3),
-                child: CachedNetworkImage(
-                  width: size.height * .04,
-                  height: size.height * .04,
-                  imageUrl: widget.user.image,
-                  fit: BoxFit.cover,
-                  errorWidget: (context, url, error) => const CircleAvatar(
-                    child: Icon(Icons.person),
-                  ),
-                ),
-              ),
-              SizedBox(height: size.height * .02),
-            ],
-          ),
-          SizedBox(width: size.width * .02),
+          //chat content
           Flexible(
             child: Container(
-              padding: EdgeInsets.all(size.width * .04),
-              margin: EdgeInsets.only(right: size.width * .04),
+              padding: EdgeInsets.all(widget.message.type == Type.image
+                  ? size.width * .03
+                  : size.width * .04),
+              margin: EdgeInsets.symmetric(
+                  horizontal: size.width * .04, vertical: size.height * .01),
               decoration: BoxDecoration(
                 color: const Color.fromARGB(100, 221, 196, 236),
                 borderRadius: const BorderRadius.only(
@@ -70,12 +54,25 @@ class _MessageCardState extends State<MessageCard> {
                 ),
                 border: Border.all(color: const Color(0xFF6750A4)),
               ),
-              child: Text(
+              child:
+              widget.message.type == Type.text ?
+              Text(
                 widget.message.msg,
                 style: const TextStyle(fontSize: 15, color: Colors.black87),
+              ):
+              ClipRRect(
+                borderRadius: BorderRadius.circular(size.height*.3),
+                child: CachedNetworkImage(
+                  imageUrl: widget.message.msg,
+                  placeholder: (context,url)=>const CircularProgressIndicator(strokeWidth: 2,),
+                  fit: BoxFit.cover,
+                  // placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.image,size: 70,),
+                ),
               ),
             ),
           ),
+          //sent time
           Padding(
             padding: EdgeInsets.only(right: size.width * .04),
             child: Text(
@@ -83,6 +80,25 @@ class _MessageCardState extends State<MessageCard> {
               style: const TextStyle(fontSize: 13, color: Colors.black54),
             ),
           ),
+          //for showing profile pic
+          // Column(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   children: [
+          //     ClipRRect(
+          //       borderRadius: BorderRadius.circular(size.height * .3),
+          //       child: CachedNetworkImage(
+          //         width: size.height * .04,
+          //         height: size.height * .04,
+          //         imageUrl: widget.user.image,
+          //         fit: BoxFit.cover,
+          //         errorWidget: (context, url, error) => const CircleAvatar(
+          //           child: Icon(Icons.person),
+          //         ),
+          //       ),
+          //     ),
+          //     SizedBox(height: size.height * .02),
+          //   ],
+          // ),
         ],
       ),
     );
@@ -117,13 +133,26 @@ class _MessageCardState extends State<MessageCard> {
 
         Flexible(
           child: Container(
-            padding: EdgeInsets.all(size.width*.04),
+            padding: EdgeInsets.all(widget.message.type == Type.image?size.width*.04: size.width*.04),
             margin: EdgeInsets.symmetric(horizontal: size.width*.04,vertical: size.height*.01),
             decoration: BoxDecoration(color: const Color.fromARGB(255, 218, 255, 176),
                 borderRadius: const BorderRadius.only(topRight: Radius.circular(25),bottomLeft: Radius.circular(25),topLeft: Radius.circular(25)),
                 border: Border.all(color: Colors.lightGreen)
             ),
-            child: Text(widget.message.msg,style: const TextStyle(fontSize: 15,color: Colors.black87),),
+            child:
+            widget.message.type == Type.text ?
+            Text(widget.message.msg,style: const TextStyle(fontSize: 15,color: Colors.black87),)
+                :
+            ClipRRect(
+              borderRadius: BorderRadius.circular(size.height*.3),
+              child: CachedNetworkImage(
+                imageUrl: widget.message.msg,
+                placeholder: (context,url)=>const CircularProgressIndicator(strokeWidth: 2,),
+                fit: BoxFit.cover,
+                // placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.image,size: 70,),
+              ),
+            ),
           ),
         ),
 

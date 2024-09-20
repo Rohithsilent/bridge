@@ -117,7 +117,7 @@ class APIs{
   }
 
   //gor sending message
-  static Future<void> sendMessage(ChatUser chatUser,String msg) async{
+  static Future<void> sendMessage(ChatUser chatUser,String msg,Type type) async{
     //message sending time (also used ad id)
     final time = DateTime.now().millisecondsSinceEpoch.toString();
      //message to send
@@ -125,7 +125,7 @@ class APIs{
         toId: chatUser.id,
         msg: msg,
         read: '',
-        type: Type.text,
+        type: type,
         fromId: user.uid,
         sent: time);
 
@@ -146,6 +146,24 @@ class APIs{
         .orderBy('sent',descending: true)
         .limit(1)
         .snapshots();
+  }
+
+  static Future<void> sendChatImage(ChatUser chatUser, File file) async {
+    //getting image file extension
+    final ext = file.path.split('.').last;
+    log('Extension:$ext');
+
+    //storage file ref with path
+    final ref = storage.ref().child('images/${getConversationID(chatUser.id)}/${DateTime.now().millisecondsSinceEpoch}.$ext');
+
+    //uploading image
+    await ref.putFile(file,SettableMetadata(contentType: 'image/$ext')).then((p0){
+      log('Data Transferred:${p0.bytesTransferred/1000} kb');
+    });
+
+    //updating image in firestore database
+    final imageUrl =await ref.getDownloadURL();
+    await sendMessage(chatUser, imageUrl, Type.image);
   }
 }
 
