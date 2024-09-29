@@ -22,6 +22,7 @@ class APIs{
   //storing self info
   static late ChatUser me;
 
+
   //for checking if user exists or not
   static Future<bool> userExists()async{
     return (await firestore
